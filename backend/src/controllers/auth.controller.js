@@ -1,6 +1,7 @@
 const userModel = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const generateToken = require("../config/token");
+const TokenBlacklistModel = require("../models/blacklist.model");
 
 /**
  * Register user controller ******************************************************************************************
@@ -132,7 +133,65 @@ const loginUser = async (req, res) => {
 
 };
 
+/**
+ * LogOut user controller ******************************************************************************************
+ * @description LogOut user with Blacklist
+ */
+
+const logOutUser = async (req, res) => {
+
+  const token = req.cookies?.token;
+  console.log("token", token);
+
+  if(!token){
+    return res.status(400).json({
+      success: false,
+      message: "No token found",
+    });
+  }
+
+  if(token){
+    await TokenBlacklistModel.create({
+      token,
+    });
+  }
+  res.clearCookie("token");
+
+  res.status(200).json({
+    success: true,
+    message: "User logged out successfully",
+  });
+};
+
+/**
+ * Get User Profile controller ******************************************************************************************
+ * @description Get User Profile 
+ */
+
+const getUserProfile = async(req, res) => {
+  
+  const userId = req.user?.id;
+
+  if(!userId){
+    return res.status(400).json({
+      success: false,
+      message: "User not found",
+    });
+  }
+  
+  const user = await userModel.findById(userId);
+  
+  
+  res.status(200).json({
+    success: true,
+    message: "User profile retrieved successfully",
+    data: user,
+  });
+}
+
 module.exports = {
   registerUser,
   loginUser,
+  logOutUser,
+  getUserProfile
 };
