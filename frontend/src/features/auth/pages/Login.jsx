@@ -1,15 +1,35 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth.js";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
+  const { handleLogin, loading } = useAuth();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log("Login clicked", email, password);
+    setError("");
+    const res = await handleLogin({ email, password });
+    if (res?.success) {
+      navigate("/");
+    } else {
+      setError(res?.message || "Invalid email or password");
+    }
   };
+
+  if (loading) {
+    return (
+      <main>
+        <h1>Loading.........</h1>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-linear-to-br from-indigo-50 via-white to-purple-50 px-4 py-12 sm:px-6 lg:px-8">
@@ -56,7 +76,7 @@ const Login = () => {
               Welcome Back
             </h2>
 
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               {/* Email */}
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -118,7 +138,7 @@ const Login = () => {
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-12 pr-12 py-3 bg-gradient-to-r from-slate-50 to-blue-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-300 transition-all duration-300 shadow-sm hover:shadow-md"
+                    className="w-full pl-12 pr-12 py-3 bg-linear-to-r from-slate-50 to-blue-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-300 transition-all duration-300 shadow-sm hover:shadow-md"
                   />
 
                   {/* Right Eye Icon */}
@@ -160,11 +180,15 @@ const Login = () => {
                   </div>
                 </div>
               </div>
-
+              {/* 🔴 Error Message */}
+              {error && (
+                <p className="text-red-500 text-sm font-medium bg-red-50 border border-red-200 px-3 py-2 rounded-lg">
+                  {error}
+                </p>
+              )}
               {/* Submit */}
               <button
                 type="submit"
-                onClick={handleSubmit}
                 className="w-full bg-linear-to-r from-indigo-600 via-purple-600 to-indigo-700 text-white py-3.5 rounded-2xl font-semibold text-base shadow-xl hover:shadow-2xl hover:from-indigo-700 hover:via-purple-700 hover:to-indigo-800 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-offset-2 transform hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
               >
                 Sign In
@@ -175,12 +199,12 @@ const Login = () => {
             <div className="text-center mt-6 space-y-2">
               <p className="text-sm text-gray-600">
                 Don't have an account?{" "}
-                <a
-                  href="/register"
+                <Link
+                  to="/register"
                   className="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors"
                 >
-                  Create one now
-                </a>
+                  Create New Account
+                </Link>
               </p>
               <p className="text-xs text-gray-500">
                 By signing in, you agree to our Terms of Service and Privacy

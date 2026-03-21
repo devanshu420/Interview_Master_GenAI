@@ -1,8 +1,44 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router";
+import { RegisterApi } from "../services/auth.api";
+import { useAuth } from "../hooks/useAuth";
 
 const Register = () => {
+  const navigate = useNavigate();
+
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const [error, setError] = useState("");
+
+  const { handleRegister, loading } = useAuth();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("User Data : ", email, username, password, phone);
+
+    const res = await handleRegister({ username, email, phone, password });
+
+    if (res?.success) {
+      navigate("/");
+    } else {
+      setError(res?.message || "Network Error");
+    }
+  };
+
+  if (loading) {
+    return (
+      <main>
+        <h1>Loading.........</h1>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-linear-to-br from-indigo-50 via-white to-purple-50 px-4 py-12 sm:px-6 lg:px-8">
@@ -49,7 +85,7 @@ const Register = () => {
               Create Account
             </h2>
 
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               {/* Username */}
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -58,6 +94,8 @@ const Register = () => {
                 <input
                   type="text"
                   placeholder="Enter your username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   className="w-full px-4 py-3 bg-linear-to-r from-slate-50 to-blue-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-300 transition-all duration-300 shadow-sm hover:shadow-md"
                 />
               </div>
@@ -70,6 +108,8 @@ const Register = () => {
                 <input
                   type="email"
                   placeholder="you@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-3 bg-linear-to-r from-slate-50 to-blue-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-300 transition-all duration-300 shadow-sm hover:shadow-md"
                 />
               </div>
@@ -82,6 +122,8 @@ const Register = () => {
                 <input
                   type="tel"
                   placeholder="+91 98765 43210"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                   className="w-full px-4 py-3 bg-linear-to-r from-slate-50 to-blue-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-300 transition-all duration-300 shadow-sm hover:shadow-md"
                 />
               </div>
@@ -97,6 +139,8 @@ const Register = () => {
                   <input
                     type={showPassword ? "text" : "password"}
                     placeholder="Create a strong password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="w-full px-4 pr-12 py-3 bg-linear-to-r from-slate-50 to-blue-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-300 transition-all duration-300 shadow-sm hover:shadow-md"
                   />
 
@@ -150,6 +194,8 @@ const Register = () => {
                   <input
                     type={showConfirmPassword ? "text" : "password"}
                     placeholder="Re-enter your password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     className="w-full px-4 pr-12 py-3 bg-linear-to-r from-slate-50 to-blue-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-indigo-100 focus:border-indigo-300 transition-all duration-300 shadow-sm hover:shadow-md"
                   />
 
@@ -191,7 +237,12 @@ const Register = () => {
                   </div>
                 </div>
               </div>
-
+              {/* 🔴 Error Message */}
+              {error && (
+                <p className="text-red-500 text-sm font-medium bg-red-50 border border-red-200 px-3 py-2 rounded-lg">
+                  {error}
+                </p>
+              )}
               {/* Button */}
               <button
                 type="submit"
@@ -203,12 +254,12 @@ const Register = () => {
 
             <p className="text-center text-sm text-gray-600 mt-5">
               Already have an account?{" "}
-              <a
-                href="/login"
+              <Link
+                to="/login"
                 className="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors"
               >
                 Sign in
-              </a>
+              </Link>
             </p>
           </div>
         </div>
