@@ -32,13 +32,6 @@ const Register = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <main>
-        <h1>Loading.........</h1>
-      </main>
-    );
-  }
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-linear-to-br from-indigo-50 via-white to-purple-50 px-4 py-12 sm:px-6 lg:px-8">
@@ -246,9 +239,17 @@ const Register = () => {
               {/* Button */}
               <button
                 type="submit"
-                className="w-full bg-linear-to-r from-indigo-600 via-purple-600 to-indigo-700 text-white py-3.5 rounded-2xl font-semibold text-base shadow-xl hover:shadow-2xl hover:from-indigo-700 hover:via-purple-700 hover:to-indigo-800 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-offset-2 transform hover:-translate-y-0.5 transition-all duration-300"
+                disabled={loading}
+                className="w-full bg-linear-to-r from-indigo-600 via-purple-600 to-indigo-700 text-white py-3.5 rounded-2xl font-semibold text-base shadow-xl hover:shadow-2xl hover:from-indigo-700 hover:via-purple-700 hover:to-indigo-800 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-offset-2 transform hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-80"
               >
-                Create Account
+                {loading ? (
+                  <>
+                    <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                    Creating...
+                  </>
+                ) : (
+                  "Create Account"
+                )}
               </button>
             </form>
 

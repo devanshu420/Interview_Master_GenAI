@@ -1,24 +1,27 @@
-
-import { Navigate } from "react-router"
-import { useAuth } from "../hooks/useAuth"
-import Home from "../pages/Home"
+import { Navigate } from "react-router";
+import { useAuth } from "../hooks/useAuth";
+import Home from "../pages/Home";
 
 const Protected = () => {
+  const { loading, user } = useAuth();
 
-    const {loading, user} = useAuth()
+  if (loading) {
+    return (
+      <>
+      <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+      Loading...
+      </>
+    )
+  }
 
-    if(loading){
-        return <main><h1>Loading.......</h1></main>
-    }
-
-    if(!user){
-       return <Navigate to={"/login"} />
-    }
+  if (!user) {
+    return <Navigate to={"/login"} />;
+  }
   return (
     <>
-     <Home /> 
+      <Home />
     </>
-  )
-}
+  );
+};
 
-export default Protected
+export default Protected;
