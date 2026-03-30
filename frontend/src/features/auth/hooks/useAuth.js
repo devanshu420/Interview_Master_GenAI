@@ -6,7 +6,7 @@ import {
   RegisterApi,
   LogoutApi,
   GetProfileApi,
-} from "../services/auth.api.js";
+} from "../api/auth.api.js";
 
 export const useAuth = () => {
   const context = useContext(AuthContext);

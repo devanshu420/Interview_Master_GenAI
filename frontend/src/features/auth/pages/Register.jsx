@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { RegisterApi } from "../services/auth.api";
 import { useAuth } from "../hooks/useAuth";
 
 const Register = () => {
