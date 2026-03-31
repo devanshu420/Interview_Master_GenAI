@@ -8,7 +8,8 @@ const upload = require("../middlewares/file.middleware");
 const {
   generateInterviewReportController,
   getInterviewReportByInterviewId,
-  getAllInterviewReports
+  getAllInterviewReports,
+  generateResumePdfController
 } = require("../controllers/interview.controller");
 
 // Create router
@@ -48,6 +49,18 @@ router.get(
   "/getAllReports",
   authMiddleware,
   getAllInterviewReports
+);
+
+
+/**
+ * @route   POST /api/interview/generate-resume-pdf/:interviewReportId
+ * @desc    Generate resume PDF
+ * @access  Private
+ */
+router.post(
+  "/generate-resume-pdf/:interviewReportId",
+  authMiddleware,
+  generateResumePdfController
 );
 
 module.exports = router;
