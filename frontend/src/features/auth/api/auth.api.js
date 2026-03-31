@@ -94,7 +94,7 @@ const GetProfileApi = async () => {
   try {
     const res = await api.get(`/auth/getProfile`);
 
-    console.log("Get Profile Api Response === ", res.data);
+    // console.log("Get Profile Api Response === ", res.data);
     return res.data;
   } catch (error) {
     console.log(error);

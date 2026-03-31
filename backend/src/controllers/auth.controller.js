@@ -105,7 +105,7 @@ const loginUser = async (req, res) => {
       message: "Invalid Password",
     });
   }
-  
+
   // generate token ******
   const token = generateToken(user);
 
@@ -114,7 +114,6 @@ const loginUser = async (req, res) => {
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
   });
-
 
   res.status(200).json({
     success: true,
@@ -128,7 +127,6 @@ const loginUser = async (req, res) => {
       token,
     },
   });
-
 };
 
 /**
@@ -137,18 +135,17 @@ const loginUser = async (req, res) => {
  */
 
 const logOutUser = async (req, res) => {
-
   const token = req.cookies?.token;
   console.log("token", token);
 
-  if(!token){
+  if (!token) {
     return res.status(400).json({
       success: false,
       message: "No token found",
     });
   }
 
-  if(token){
+  if (token) {
     await TokenBlacklistModel.create({
       token,
     });
@@ -163,33 +160,31 @@ const logOutUser = async (req, res) => {
 
 /**
  * Get User Profile controller ******************************************************************************************
- * @description Get User Profile 
+ * @description Get User Profile
  */
 
-const getUserProfile = async(req, res) => {
-  
+const getUserProfile = async (req, res) => {
   const userId = req.user?.id;
 
-  if(!userId){
+  if (!userId) {
     return res.status(400).json({
       success: false,
       message: "User not found",
     });
   }
-  
-  const user = await userModel.findById(userId);
-  
-  
+
+  const user = await userModel.findById(userId).select("-password -__v");
+
   res.status(200).json({
     success: true,
     message: "User profile retrieved successfully",
     user: user,
   });
-}
+};
 
 module.exports = {
   registerUser,
   loginUser,
   logOutUser,
-  getUserProfile
+  getUserProfile,
 };

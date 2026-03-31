@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useInterview from "../hooks/useInterview.jsx";
 import { useParams } from "react-router";
+import { useNavigate } from "react-router";
 
 // ── Navigation Items ──
 const NAV_ITEMS = [
@@ -83,6 +84,7 @@ const Interview = () => {
   const [activeNav, setActiveNav] = useState("technical");
   const { report, getReportById, loading } = useInterview();
   const { interviewId } = useParams();
+  const navigate = useNavigate();
 
   console.log("ID:", interviewId);
   console.log("REPORT:", report);
@@ -113,7 +115,7 @@ const Interview = () => {
         : "border-red-500";
 
   return (
-    <div className="min-h-screen bg-[#0d1117] text-white p-6 flex justify-center">
+    <div className="min-h-screen bg-[#0d1117] text-white p-6 flex justify-center relative">
       <div className="flex w-full max-w-6xl bg-[#161b22] border border-[#2a3348] rounded-xl">
         {/* ── Left Nav ── */}
         <div className="w-56 p-4 flex flex-col justify-between">
@@ -185,8 +187,19 @@ const Interview = () => {
         {/* ── Sidebar ── */}
         <div className="w-60 p-5 space-y-6">
           {/* Score */}
+          {/* Score + Back */}
           <div>
-            <p className="text-xs text-gray-400 mb-2">Match Score</p>
+            <div className="flex items-center justify-between mb-2">
+              <p className="text-xs text-gray-400">Match Score</p>
+
+              {/* BACK BUTTON */}
+              <button
+                onClick={() => navigate(-1)}
+                className="flex items-center gap-2 text-sm px-3 py-1.5 border border-pink-500/30 text-pink-400 bg-pink-500/10 rounded-md hover:bg-pink-500/20 transition cursor-pointer"
+              >
+                ← Back
+              </button>
+            </div>
 
             <div
               className={`w-20 h-20 flex flex-col items-center justify-center rounded-full border-4 ${scoreColor}`}
