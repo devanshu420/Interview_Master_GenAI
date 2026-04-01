@@ -27,7 +27,7 @@ const api = axios.create({
 const RegisterApi = async ({ username, email, phone, password }) => {
   try {
     const res = await api.post(
-      `/auth/register`,
+      `/api/auth/register`,
       {
         username,
         email,
@@ -54,7 +54,7 @@ const RegisterApi = async ({ username, email, phone, password }) => {
 const LoginApi = async ({ email, password }) => {
   try {
     const res = await api.post(
-      `/auth/login`,
+      `/api/auth/login`,
       {
         email,
         password,
@@ -76,7 +76,7 @@ const LoginApi = async ({ email, password }) => {
  */
 const LogoutApi = async () => {
   try {
-    const res = await api.get(`/auth/logout`);
+    const res = await api.get(`/api/auth/logout`);
 
     console.log("LogOut Api Response === ", res.data);
     return res.data;
@@ -92,7 +92,7 @@ const LogoutApi = async () => {
  */
 const GetProfileApi = async () => {
   try {
-    const res = await api.get(`/auth/getProfile`);
+    const res = await api.get(`/api/auth/getProfile`);
 
     // console.log("Get Profile Api Response === ", res.data);
     return res.data;
