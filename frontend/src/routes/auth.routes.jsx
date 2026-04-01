@@ -5,6 +5,7 @@ import Protected from "../features/Protected.jsx";
 import Interview from "../features/interview/pages/Interview.jsx";
 import Home from "../features/interview/pages/Home.jsx";
 import AllReport from "../features/interview/pages/AllReport.jsx";
+import Landing from "../pages/Landing.jsx";
 
 const authRouter = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const authRouter = createBrowserRouter([
   },
   {
     path: "/",
+    element: <Landing />,
+  },
+  {
+    path: "/home",
     element: (
       <Protected>
         <Home />

@@ -4,7 +4,9 @@ import {
   generateInterviewReport,
   getInterviewReportById,
   getAllInterviewReports,
+  generateResumePdf,
 } from "../api/interview.api";
+import toast from "react-hot-toast";
 
 const useInterview = () => {
   const interviewContext = useContext(InterviewContext);
@@ -13,8 +15,7 @@ const useInterview = () => {
     throw new Error("useInterview must be used within InterviewProvider");
   }
 
-  const { loading, setLoading, report, setReport, allReports, setAllReports } =
-    interviewContext;
+  const { loading, setLoading, report, setReport, allReports, setAllReports } = interviewContext;
 
   // ✅ GENERATE REPORT
   const generateReport = async ({
@@ -88,6 +89,36 @@ const useInterview = () => {
     return response;
   };
 
+  // ✅ GENERATE RESUME PDF and DOWNLOAD
+const getResumePdf = async (interviewReportId) => {
+  setLoading(true);
+
+  const toastId = toast.loading("Generating Resume... ⏳");
+
+  try {
+    const response = await generateResumePdf({ interviewReportId });
+
+    const url = window.URL.createObjectURL(new Blob([response]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "resume.pdf");
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    toast.success("Resume downloaded successfully 🎉", {
+      id: toastId,
+    });
+  } catch (error) {
+    console.error("Error downloading resume:", error);
+    toast.error("Failed to generate resume ❌", {
+      id: toastId,
+    });
+  } finally {
+    setLoading(false);
+  }
+};
+
   return {
     loading,
     report,
@@ -95,6 +126,7 @@ const useInterview = () => {
     generateReport,
     getReportById,
     getAllReports,
+    getResumePdf,
   };
 };
 
