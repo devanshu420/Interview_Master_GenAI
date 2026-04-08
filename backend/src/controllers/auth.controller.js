@@ -56,7 +56,9 @@ const registerUser = async (req, res) => {
   // Set Token in Cookie
   res.cookie("token", token, {
     httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours,
+    secure: true,
+    sameSite: "none",
   });
 
   res.status(201).json({
@@ -113,6 +115,8 @@ const loginUser = async (req, res) => {
   res.cookie("token", token, {
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    secure: true,
+    sameSite: "none",
   });
 
   res.status(200).json({
