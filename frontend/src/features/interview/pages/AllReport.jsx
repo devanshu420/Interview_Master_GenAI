@@ -39,7 +39,7 @@ const AllReport = () => {
 
         <button
           onClick={() => navigate("/")}
-          className="px-4 py-1.5 text-sm border border-pink-500/30 text-pink-400 bg-pink-500/10 rounded-md hover:bg-pink-500/20 transition"
+          className="px-4 py-1.5 text-sm border border-pink-500/30 text-pink-400 bg-pink-500/10 rounded-md hover:bg-pink-500/20 transition cursor-pointer"
         >
           ← Back
         </button>
@@ -89,16 +89,7 @@ const AllReport = () => {
               <span className="text-xs text-gray-500">AI Generated Report</span>
 
               <div className="flex gap-2">
-                {/* DOWNLOAD BUTTON */}
-                <button
-                  className="flex items-center gap-2 px-4 py-1.5 text-sm border border-green-500/30 text-green-400 bg-green-500/10 rounded-md hover:bg-green-500/20 transition cursor-pointer"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    console.log("Download report:", report._id);
-                  }}
-                >
-                  <Download size={16} />
-                </button>
+            
 
                 {/* VIEW DETAILS */}
                 <button

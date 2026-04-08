@@ -12,37 +12,50 @@ const Landing = () => {
 
   return (
     <div className="min-h-screen bg-[#0d1117] text-white flex flex-col">
-
       {/* 🔝 NAVBAR */}
-      <div className="sticky top-0 z-50 backdrop-blur bg-[#0d1117]/70 border-b border-[#2a3348] px-8 py-4 flex justify-between items-center">
-        <h1 className="text-lg font-bold">
-          <span className="text-pink-500">AI</span> Interview Prep
-        </h1>
+     <div className="sticky top-0 z-50 backdrop-blur bg-[#0d1117]/70 border-b border-[#2a3348] px-8 py-3 flex justify-between items-center">
+  
+  {/* LEFT SIDE (LOGO + TEXT FIXED) */}
+  <div className="flex items-center gap-3">
+    <img
+      src="/interview-master.png"   // ❗ public folder me ho to /public mat lagao
+      alt="Interview Master Logo"
+      className="w-15 h-15 object-contain"
+    />
 
-        <div className="flex items-center gap-4 text-sm text-gray-400">
-          {user ? (
-            <>
-              <button
-                onClick={() => navigate("/all-reports")}
-                className="px-3 py-1 rounded-md bg-pink-500/10 text-green-400 border border-pink-500/30 hover:bg-pink-500/20"
-              >
-                📄 My Reports
-              </button>
+    <h1 className="text-lg font-bold whitespace-nowrap">
+      <span className="text-pink-500">AI</span> Interview Prep
+    </h1>
+  </div>
 
-              <button
-                onClick={handleLogout}
-                className="px-3 py-1 rounded-md border border-pink-500/30 text-pink-400 bg-pink-500/10 hover:bg-pink-500/20"
-              >
-                Sign Out
-              </button>
-            </>
-          ) : (
-            <button onClick={() => navigate("/login")} className="hover:text-white">
-              Login
-            </button>
-          )}
-        </div>
-      </div>
+  {/* RIGHT SIDE */}
+  <div className="flex items-center gap-4 text-sm text-gray-400">
+    {user ? (
+      <>
+        <button
+          onClick={() => navigate("/all-reports")}
+          className="px-3 py-1 rounded-md bg-pink-500/10 text-green-400 border border-pink-500/30 hover:bg-pink-500/20 cursor-pointer"
+        >
+          📄 My Reports
+        </button>
+
+        <button
+          onClick={handleLogout}
+          className="px-3 py-1 rounded-md border border-pink-500/30 text-pink-400 bg-pink-500/10 hover:bg-pink-500/20 cursor-pointer"
+        >
+          Sign Out
+        </button>
+      </>
+    ) : (
+      <button
+        onClick={() => navigate("/login")}
+        className="px-5 py-2 rounded-xl bg-linear-to-r from-pink-500 to-purple-600 text-white font-medium shadow-md hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out cursor-pointer"
+      >
+        Login
+      </button>
+    )}
+  </div>
+</div>
 
       {/* 🦸 HERO */}
       <section className="flex flex-col items-center justify-center text-center px-6 py-20">
@@ -140,9 +153,7 @@ const Landing = () => {
 
       {/* 🌟 TESTIMONIALS */}
       <section className="px-6 py-16 bg-[#11161d]">
-        <h2 className="text-2xl font-bold text-center mb-10">
-          What Users Say
-        </h2>
+        <h2 className="text-2xl font-bold text-center mb-10">What Users Say</h2>
 
         <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {["Rahul", "Aman", "Priya"].map((name, i) => (
@@ -176,13 +187,18 @@ const Landing = () => {
       {/* 🧾 FOOTER */}
       <footer className="text-center text-xs text-gray-500 py-6 border-t border-[#2a3348]">
         <div className="flex justify-center gap-6 mb-2">
-          <a href="#" className="hover:text-white">Privacy</a>
-          <a href="#" className="hover:text-white">Terms</a>
-          <a href="#" className="hover:text-white">Contact</a>
+          <a href="#" className="hover:text-white">
+            Privacy
+          </a>
+          <a href="#" className="hover:text-white">
+            Terms
+          </a>
+          <a href="#" className="hover:text-white">
+            Contact
+          </a>
         </div>
         © 2026 AI Interview Prep • Built with ❤️
       </footer>
-
     </div>
   );
 };
