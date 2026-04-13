@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import useInterview from "../hooks/useInterview";
 import { useNavigate } from "react-router";
-import { useAuth } from "../../auth/hooks/useAuth"; // ✅ ADD
+import { useAuth } from "../../auth/hooks/useAuth";
 
 const Home = () => {
   const { generateReport, loading, getAllReports, report } = useInterview();
@@ -39,7 +39,7 @@ const Home = () => {
     }
   };
 
-  // ✅ LOGOUT HANDLER
+  //  LOGOUT HANDLER
   const handleLogout = () => {
     handleLogOut();
     navigate("/login");
@@ -63,7 +63,7 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-[#0d1117] text-[#e6edf3] flex flex-col items-center justify-center px-6 py-10 gap-8 relative">
-      {/* ✅ SIGN OUT BUTTON (TOP RIGHT) */}
+      {/*  SIGN OUT BUTTON (TOP RIGHT) */}
       <button
         onClick={handleAllReports}
         className="absolute top-6 right-32 flex items-center gap-2 px-4 py-1.5 text-sm font-medium 
@@ -143,7 +143,7 @@ const Home = () => {
                 className="mt-2 flex flex-col items-center justify-center gap-1 p-6 bg-[#1e2535] border-2 border-dashed border-[#2a3348] rounded-md cursor-pointer hover:border-pink-500 hover:bg-pink-500/5 transition"
               >
                 {fileName ? (
-                  <p className="text-green-400 text-sm">✅ {fileName}</p>
+                  <p className="text-green-400 text-sm"> {fileName}</p>
                 ) : (
                   <>
                     <p className="text-sm">Click to upload or drag & drop</p>

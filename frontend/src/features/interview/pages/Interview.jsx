@@ -90,14 +90,14 @@ const Interview = () => {
   console.log("ID:", interviewId);
   console.log("REPORT:", report);
 
-  // ✅ FIXED API CALL
+  //  FIXED API CALL
   useEffect(() => {
     if (interviewId) {
-      getReportById(interviewId); // ✅ string pass karna hai
+      getReportById(interviewId); //  string pass karna hai
     }
   }, [interviewId]);
 
-  // ✅ LOADING UI (Better UX)
+  //  LOADING UI (Better UX)
   if (loading || !report) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-[#0d1117] text-white">
@@ -107,7 +107,7 @@ const Interview = () => {
     );
   }
 
-  // ✅ Score color
+  //  Score color
   const scoreColor =
     report?.matchScore >= 80
       ? "border-green-500"

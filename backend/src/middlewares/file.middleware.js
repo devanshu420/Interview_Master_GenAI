@@ -1,11 +1,20 @@
 const multer = require("multer");
 
+//  Use memoryStorage — works in both local and production (no disk access needed)
+const storage = multer.memoryStorage();
 
 const upload = multer({
-    storage: multer.memoryStorage(),
-    limits: {
-         fileSize: 1024 * 1024 * 3 // 3MB
+  storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB max
+  },
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype === "application/pdf") {
+      cb(null, true);
+    } else {
+      cb(new Error("Only PDF files are allowed"), false);
     }
-})
+  },
+});
 
 module.exports = upload;

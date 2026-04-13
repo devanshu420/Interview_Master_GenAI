@@ -19,7 +19,7 @@ const Protected = ({ children }) => {
     return <Navigate to="/login" />;
   }
 
-  // ✅ IMPORTANT CHANGE
+  //  IMPORTANT CHANGE
   return children;
 };
 

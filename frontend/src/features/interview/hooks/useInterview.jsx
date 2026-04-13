@@ -17,7 +17,7 @@ const useInterview = () => {
 
   const { loading, setLoading, report, setReport, allReports, setAllReports } = interviewContext;
 
-  // ✅ GENERATE REPORT
+  //  GENERATE REPORT
   const generateReport = async ({
     jobDescription,
     resumeFile,
@@ -47,7 +47,7 @@ const useInterview = () => {
     return response;
   };
 
-  // ✅ GET REPORT BY ID (FIXED)
+  //  GET REPORT BY ID (FIXED)
   const getReportById = async (id) => {
     setLoading(true);
     let response = null;
@@ -57,7 +57,6 @@ const useInterview = () => {
 
       console.log("Fetched API Response:", response);
 
-      // ✅ yaha fix hai
       if (response?.data) {
         setReport(response.data);
       }
@@ -69,7 +68,7 @@ const useInterview = () => {
 
     return response;
   };
-  // ✅ GET ALL REPORTS
+  //  GET ALL REPORTS
   const getAllReports = async () => {
     setLoading(true);
     let response = null;
@@ -89,7 +88,7 @@ const useInterview = () => {
     return response;
   };
 
-  // ✅ GENERATE RESUME PDF and DOWNLOAD
+  //  GENERATE RESUME PDF and DOWNLOAD
 const getResumePdf = async (interviewReportId) => {
   setLoading(true);
 

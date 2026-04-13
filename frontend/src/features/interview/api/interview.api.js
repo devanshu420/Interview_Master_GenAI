@@ -61,4 +61,3 @@ export const generateResumePdf = async ({ interviewReportId }) => {
   })
   return response.data
 };
-
