@@ -87,8 +87,8 @@ const Interview = () => {
   const { interviewId } = useParams();
   const navigate = useNavigate();
 
-  console.log("ID:", interviewId);
-  console.log("REPORT:", report);
+  // console.log("ID:", interviewId);
+  // console.log("REPORT:", report);
 
   //  FIXED API CALL
   useEffect(() => {
@@ -118,7 +118,7 @@ const Interview = () => {
   
   const handleGenerateResume = async() => {
     const res = await getResumePdf(interviewId);
-    console.log("Generate Resume Response" , res);
+    // console.log("Generate Resume Response" , res);
     
   }
 

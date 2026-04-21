@@ -33,7 +33,7 @@ const useInterview = () => {
         selfDescription,
       });
 
-      console.log("API Response:", response);
+      // console.log("API Response:", response);
 
       if (response?.data) {
         setReport(response.data);
@@ -55,7 +55,7 @@ const useInterview = () => {
     try {
       response = await getInterviewReportById(id);
 
-      console.log("Fetched API Response:", response);
+      // console.log("Fetched API Response:", response);
 
       if (response?.data) {
         setReport(response.data);
@@ -75,6 +75,8 @@ const useInterview = () => {
 
     try {
       response = await getAllInterviewReports();
+      // console.log("hook response interview : ", response);
+      
 
       if (response?.data) {
         setAllReports(response.data);

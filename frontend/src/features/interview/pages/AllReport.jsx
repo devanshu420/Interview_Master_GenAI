@@ -6,20 +6,36 @@ import { Download } from "lucide-react";
 const AllReport = () => {
   const navigate = useNavigate();
   const { getAllReports } = useInterview();
+  // console.log("Get all report : " , getAllReports());
+  
 
   const [reports, setReports] = useState([]);
 
+  // useEffect(() => {
+  //   const fetchReports = async () => {
+  //     const response = await getAllReports();
+  // console.log("Get all report : " , response.data);
+
+
+  //     if (response?.interviewReports) {
+  //       setReports(response.interviewReports);
+  //     }
+  //   };
+
+  //   fetchReports();
+  // }, []);
+
+
   useEffect(() => {
-    const fetchReports = async () => {
-      const response = await getAllReports();
+  const fetchReports = async () => {
+    const response = await getAllReports();
+    // console.log("Get all report : ", response.data);
 
-      if (response?.interviewReports) {
-        setReports(response.interviewReports);
-      }
-    };
+    setReports(response?.data || []);
+  };
 
-    fetchReports();
-  }, []);
+  fetchReports();
+}, []);
 
   const formatDate = (date) => {
     return new Date(date).toLocaleDateString("en-IN", {
